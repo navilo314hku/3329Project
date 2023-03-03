@@ -5,7 +5,7 @@
 - Using Github Desktop 
 - command line interface is provided as alternative
 First time: 
-1. cd <somewhere you want>
+1. cd somewhere
 2. git clone https://github.com/navilo314hku/3329Project.git
 
 After first time: 
