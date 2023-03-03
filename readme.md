@@ -3,7 +3,7 @@
 
 ## Suggested ways for collaboration
 - Using Github Desktop 
-- command line interface is provided as alternative
+- command line interface is provided as alternative<br>
 First time: <br>
 1. cd somewhere
 2. git clone https://github.com/navilo314hku/3329Project.git
