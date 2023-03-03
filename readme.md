@@ -8,11 +8,10 @@ First time:
 1. cd somewhere
 2. git clone https://github.com/navilo314hku/3329Project.git
 
-After first time: 
-1. Make sure everytime before you work on the project, do pull the project first\n
+After first time: 1. Make sure everytime before you work on the project, do pull the project first <br/>
 git pull
 
-2. After you finish editing
-git add *
-git commit -m "commit description"
-git push -u origin master 
+2. After you finish editing<br/>
+git add * <br/>
+git commit -m "commit description" <br/>
+git push -u origin master <br/>
