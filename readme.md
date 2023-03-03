@@ -1,5 +1,5 @@
 ## Unity Version(IMPORTANT): 
-2021.3.7f1 (make sure it is the same before opening the project)
+2021.3.7f1 (make that you have installed the same version in unity hub)
 
 ## How to open the project in Unity
 1. Open Unity Hub
