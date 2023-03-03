@@ -9,7 +9,7 @@ First time:
 2. git clone https://github.com/navilo314hku/3329Project.git
 
 After first time: 
-1. Make sure everytime before you work on the project, do pull the project first
+1. Make sure everytime before you work on the project, do pull the project first\n
 git pull
 
 2. After you finish editing
