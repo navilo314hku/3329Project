@@ -1,6 +1,12 @@
 ## Unity Version(IMPORTANT): 
 2021.3.7f1 (make sure it is the same before opening the project)
 
+## How to open the project in Unity
+1. Open Unity Hub
+2. Click "open" in the upper right corner 
+3. Choose the folder "3329Project" in the same layer with with readme.md, NOT THE OUTSIDE ONE.
+4. Done
+
 ## Suggested ways for collaboration
 - Using Github Desktop 
 - command line interface is provided as alternative<br>
