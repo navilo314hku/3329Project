@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     public GameObject Respawn_Block;
-    public Transfer Player; 
+    private bool gameover; 
     public GameObject get_respawn_block()
     {
         return Respawn_Block;
@@ -22,11 +22,29 @@ public class LevelController : MonoBehaviour
         {
             throw new System.Exception("No respawn_block is found");
         }
+        gameover = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Wait for 1 second
+        StartCoroutine(WaitForOneSecond());
+    }
+
+    public bool get_gameover()
+    {
+        return gameover; 
+    }
+
+    public void set_gameover(bool status)
+    {
+        gameover = status;
+    }
+
+    IEnumerator WaitForOneSecond()
+    {
+        yield return new WaitForSeconds(1.0f);
+        set_gameover(false);
     }
 }

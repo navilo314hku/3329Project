@@ -18,12 +18,14 @@ public class PushButton : MonoBehaviour
     private bool isColliding;
     private Vector3 originalPos;
     private Rigidbody2D rb;
+    private LevelController level_controller;
 
     void Start()
     {
         pressed = false;
         originalPos = targetObject.position;
         rb = targetObject.GetComponent<Rigidbody2D>();
+        level_controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelController>();
     }
 
     void Update()
@@ -45,6 +47,14 @@ public class PushButton : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
             }
+        }
+
+        if (level_controller.get_gameover())
+        {
+            spriteRenderer.sprite = original;
+            targetObject.position = originalPos;
+            rb.velocity = Vector2.zero;
+            pressed = false;
         }
     }
 

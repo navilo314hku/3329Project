@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class Player : MonoBehaviour
 {
     public Vector2 velocity;
@@ -83,7 +84,6 @@ public class Player : MonoBehaviour
         walk_right = !input_left && input_right;
         jump = input_space;
         //Debug.Log(input_space);
-
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
         }
         if (other.tag == "Spikes") {
             Debug.Log("Ouch!!! Spikes");
+            level_controller.set_gameover(true);
             respawn();
         }
         if (other.tag == "Exit" & havekey)
