@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     public GameObject Respawn_Block;
+    public Transfer Player; 
     public GameObject get_respawn_block()
     {
         return Respawn_Block;
