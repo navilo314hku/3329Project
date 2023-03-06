@@ -46,6 +46,7 @@ public class PushButton : MonoBehaviour
             targetObject.position = originalPos;
             //rb.velocity = Vector2.zero;
             pressed = false;
+            isColliding = false;
         }
         
     }
