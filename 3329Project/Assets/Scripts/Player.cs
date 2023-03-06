@@ -13,20 +13,26 @@ public class Player : MonoBehaviour
     public int current_level = 1;
     Rigidbody2D rb;
 
+    private int jump_count;
     private bool walk,run, walk_left, walk_right, jump;
     // Start is called before the first frame update
     private LevelController level_controller;
+
+
     public void respawn()
     {
+        //gameover restart
+        level_controller.set_gameover(true);
+
         //get the respawn block game object
         GameObject respawn_block = level_controller.get_respawn_block();
-        transform.position = new Vector3(respawn_block.transform.position.x, respawn_block.transform.position.y, respawn_block.transform.position.z);
+        transform.position = new Vector3(respawn_block.transform.position.x, respawn_block.transform.position.y+5, respawn_block.transform.position.z);
     }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         level_controller = GameObject.FindGameObjectWithTag("GameController").GetComponent <LevelController>() ;
-
+        jump_count = 0;
     }
 
     // Update is called once per frame
@@ -35,7 +41,9 @@ public class Player : MonoBehaviour
         CheckPlayerInput();
         UpdatePlayerPosition();
         //RayCastCheck();
+        CheckDrop();
     }
+
     void UpdatePlayerPosition()
     {
         Vector3 pos = transform.localPosition;
@@ -67,11 +75,13 @@ public class Player : MonoBehaviour
 
         transform.localPosition = pos;
         transform.localScale = scale;
-        if (jump && rb.velocity.y == 0)
+        if (jump & jump_count<2)
         {
+            jump_count += 1;
             rb.AddForce(Vector3.up * jumpforce, ForceMode2D.Impulse);
         }
     }
+
     void CheckPlayerInput()
     {
         bool input_left = Input.GetKey(KeyCode.LeftArrow);
@@ -85,6 +95,15 @@ public class Player : MonoBehaviour
         jump = input_space;
         //Debug.Log(input_space);
     }
+
+    void CheckDrop()
+    {
+        if (transform.position.y < -100)
+        {
+            respawn();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Key")
@@ -96,7 +115,6 @@ public class Player : MonoBehaviour
         }
         if (other.tag == "Spikes") {
             Debug.Log("Ouch!!! Spikes");
-            level_controller.set_gameover(true);
             respawn();
         }
         if (other.tag == "Exit" & havekey)
@@ -107,6 +125,26 @@ public class Player : MonoBehaviour
             //GoToNextLevel();
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        jump_count = 0;
+        if (collision.gameObject.tag == "MovingBlock")
+        {
+            Debug.Log("contacted");
+            transform.SetParent(collision.collider.transform, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingBlock")
+        {
+            transform.SetParent(null);
+        }
+    }
+
+
     //Vector3 CheckWallRays(Vector3 pos, float direction)
     //{
     //    Vector2 originTop = new Vector2(pos.x + direction * .4f, pos.y + 1f - 0.2f);

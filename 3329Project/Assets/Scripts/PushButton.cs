@@ -17,57 +17,46 @@ public class PushButton : MonoBehaviour
     private bool pressed;
     private bool isColliding;
     private Vector3 originalPos;
-    private Rigidbody2D rb;
+    //private Rigidbody2D rb;
     private LevelController level_controller;
 
     void Start()
     {
         pressed = false;
         originalPos = targetObject.position;
-        rb = targetObject.GetComponent<Rigidbody2D>();
+        //rb = targetObject.GetComponent<Rigidbody2D>();
+        original = spriteRenderer.sprite;
         level_controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelController>();
     }
 
     void Update()
     {
-        float distance = (targetPos - targetObject.position).magnitude;
-        if ((!reuseable || (reuseable & isColliding)) & distance < 0.3f)
+        if (isColliding)
         {
-            rb.velocity = Vector2.zero;
+            UpdateMovement(targetPos);
         }
-        else if (reuseable & !isColliding)
+        else
         {
-            float distance_to_original = (originalPos - targetObject.position).magnitude;
-            if (distance_to_original > 0.3f)
-            {
-                Vector3 direction = (originalPos - targetPos) * speed;
-                UpdateMovement(direction);
-            }
-            else
-            {
-                rb.velocity = Vector2.zero;
-            }
+            UpdateMovement(originalPos);
         }
 
         if (level_controller.get_gameover())
         {
             spriteRenderer.sprite = original;
             targetObject.position = originalPos;
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero;
             pressed = false;
         }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D target)
     {
-        
         // Update the image with the new sprite
         if ((!reuseable & !pressed) || reuseable)
         {
-            Vector3 direction = (targetPos - originalPos) * speed;
             isColliding = true;
             UpdateSprite();
-            UpdateMovement(direction);
         }
     }
 
@@ -75,11 +64,8 @@ public class PushButton : MonoBehaviour
     {
         if (reuseable)
         {
-            Vector3 direction = (originalPos - targetObject.position) * speed;
-
             isColliding = false;
             UpdateSprite();
-            UpdateMovement(direction);
         }
     }
 
@@ -88,7 +74,6 @@ public class PushButton : MonoBehaviour
         if (isColliding)
         {
             pressed = true;
-            original = spriteRenderer.sprite;
             spriteRenderer.sprite = newSprite;
         }
         else
@@ -99,7 +84,6 @@ public class PushButton : MonoBehaviour
 
     private void UpdateMovement(Vector3 direction)
     {
-        rb.velocity = new Vector2(direction.x, direction.y);
-        Debug.Log(direction.y);
+        targetObject.position = Vector3.MoveTowards(targetObject.position, direction, speed * Time.deltaTime);
     }
 }
