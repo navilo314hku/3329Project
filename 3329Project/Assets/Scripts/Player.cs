@@ -134,6 +134,12 @@ public class Player : MonoBehaviour
             Debug.Log("contacted");
             transform.SetParent(collision.collider.transform, true);
         }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Ouch!!! Enemy");
+            respawn();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
