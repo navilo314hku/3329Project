@@ -1513,6 +1513,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4375020268020609721, guid: 2831a1ff63a0b4a75a5a37c4ab1a7722, type: 3}
+      propertyPath: velocity.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375020268020609721, guid: 2831a1ff63a0b4a75a5a37c4ab1a7722, type: 3}
+      propertyPath: runVelocity.x
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4375020268020609726, guid: 2831a1ff63a0b4a75a5a37c4ab1a7722, type: 3}
       propertyPath: m_RootOrder
       value: 6

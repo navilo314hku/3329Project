@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
-{
+{   
+    //Player related
     public Vector2 velocity;
     public Vector2 runVelocity;
-    public LayerMask wallMask;
     public float jumpforce = 10f;
+    public int player_id; //Indicate the character is Player 1 or Player 2
+    public LayerMask wallMask;
     public bool havekey =false;
     public int current_level = 1;
     Rigidbody2D rb;
@@ -75,25 +77,43 @@ public class Player : MonoBehaviour
 
         transform.localPosition = pos;
         transform.localScale = scale;
-        if (jump & jump_count<2)
+        if (jump && jump_count<2)
         {
+            Debug.Log("jumpping");
             jump_count += 1;
             rb.AddForce(Vector3.up * jumpforce, ForceMode2D.Impulse);
         }
     }
-
     void CheckPlayerInput()
     {
-        bool input_left = Input.GetKey(KeyCode.LeftArrow);
-        bool input_right = Input.GetKey(KeyCode.RightArrow);
-        bool input_space = Input.GetKeyDown(KeyCode.Space);
-        bool input_z = Input.GetKey(KeyCode.Z);
-        run = input_z;
-        walk = input_left || input_right;
-        walk_left = input_left && !input_right;
-        walk_right = !input_left && input_right;
-        jump = input_space;
-        //Debug.Log(input_space);
+        if (player_id == 1) //Player 1
+        {
+            bool input_left = Input.GetKey(KeyCode.LeftArrow);
+            bool input_right = Input.GetKey(KeyCode.RightArrow);
+            bool input_jump = Input.GetKeyDown(KeyCode.UpArrow);
+            bool input_run = Input.GetKey(KeyCode.M);
+            run = input_run;
+            walk = input_left || input_right;
+            walk_left = input_left && !input_right;
+            walk_right = !input_left && input_right;
+            jump = input_jump;
+        }
+        else if (player_id == 2)
+        {   //TODO: Keys To be editted 
+            bool input_left = Input.GetKey(KeyCode.A);
+            bool input_right = Input.GetKey(KeyCode.D);
+            bool input_jump = Input.GetKeyDown(KeyCode.W);
+            bool input_run = Input.GetKey(KeyCode.V);
+            run = input_run;
+            walk = input_left || input_right;
+            walk_left = input_left && !input_right;
+            walk_right = !input_left && input_right;
+            jump = input_jump;
+        }
+        else
+        {
+            Debug.Log("Missing player id");
+        }
     }
 
     void CheckDrop()
@@ -168,3 +188,17 @@ public class Player : MonoBehaviour
     //}
     //Vector3 CheckUpDownRays(Vector3 pos)
 }
+/*void CheckPlayerInput()
+{
+    bool input_left = Input.GetKey(KeyCode.LeftArrow);
+    bool input_right = Input.GetKey(KeyCode.RightArrow);
+    bool input_space = Input.GetKeyDown(KeyCode.Space);
+    bool input_z = Input.GetKey(KeyCode.Z);
+    run = input_z;
+    walk = input_left || input_right;
+    walk_left = input_left && !input_right;
+    walk_right = !input_left && input_right;
+    jump = input_space;
+    //Debug.Log(input_space);
+}
+*/
